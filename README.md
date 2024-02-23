@@ -21,6 +21,11 @@ This project is a backend application developed in Go, using the Gin framework f
 - **logrus**: Logging library for Go, configured to print logs in JSON format.
 - **PostgreSQL**: Relational database management system used to store merchant and payment data.
 
+## Db Model
+
+![payment-platform](https://github.com/gouh/payment-platform/assets/13145599/1c05ae82-db23-430b-86d6-083a48146eda)
+
+
 ## Project Structure
 
 ```
