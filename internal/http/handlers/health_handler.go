@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"database/sql"
+	"context"
 	"github.com/gin-gonic/gin"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"net/http"
 	"payment-platform/internal/container"
 	"payment-platform/internal/responses"
@@ -13,12 +14,12 @@ type (
 		HealthCheck(c *gin.Context)
 	}
 	HealthHandler struct {
-		Db *sql.DB
+		Db *pgxpool.Pool
 	}
 )
 
 func (handler *HealthHandler) HealthCheck(c *gin.Context) {
-	errPingDb := handler.Db.Ping()
+	errPingDb := handler.Db.Ping(context.Background())
 	if errPingDb != nil {
 		c.JSON(http.StatusInternalServerError, responses.GetErrorResponse("Error connecting to database"+errPingDb.Error()))
 		return

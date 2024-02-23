@@ -1,10 +1,10 @@
 package responses
 
 type Meta struct {
-	Page        *int    `json:"page"`
-	PageSize    *int    `json:"size"`
-	ItemsInPage *int    `json:"itemsInPage"`
-	TotalPages  *int    `json:"totalPages"`
+	Page        *int    `json:"page,omitempty"`
+	PageSize    *int    `json:"size,omitempty"`
+	ItemsInPage *int    `json:"itemsInPage,omitempty"`
+	TotalPages  *int    `json:"totalPages,omitempty"`
 	Error       *string `json:"error,omitempty"`
 }
 

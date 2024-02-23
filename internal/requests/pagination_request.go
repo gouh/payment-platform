@@ -1,29 +1,26 @@
 package requests
 
 import (
-	"github.com/gin-gonic/gin"
-	"strconv"
+	"braces.dev/errtrace"
+	"github.com/gorilla/schema"
 )
 
 type PaginationRequest struct {
-	Page     *int
-	PageSize *int
+	Page     int `schema:"page"`
+	PageSize int `schema:"size"`
 }
 
-func (pagination *PaginationRequest) GetDefaultPaginationParams(c *gin.Context) PaginationRequest {
-	page, pageSize := 1, 30
+func (paginationRequest *PaginationRequest) QueryParamsToStruct(
+	queryValues map[string][]string, queryParams interface{},
+) error {
+	decoder := schema.NewDecoder()
 
-	if p, ok := c.GetQuery("page"); ok {
-		if pInt, err := strconv.Atoi(p); err == nil && pInt > 0 {
-			page = pInt
-		}
+	paginationRequest.Page = 1
+	paginationRequest.PageSize = 10
+
+	err := decoder.Decode(queryParams, queryValues)
+	if err != nil {
+		return errtrace.Wrap(err)
 	}
-
-	if ps, ok := c.GetQuery("pageSize"); ok {
-		if psInt, err := strconv.Atoi(ps); err == nil && psInt > 0 {
-			pageSize = psInt
-		}
-	}
-
-	return PaginationRequest{Page: &page, PageSize: &pageSize}
+	return nil
 }
