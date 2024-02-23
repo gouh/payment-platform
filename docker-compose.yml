@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   app:
+    container_name: payment-platform-api
     build:
       context: .
       dockerfile: docker/Dockerfile
@@ -8,16 +9,16 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+    command: ["dockerize", "-wait", "tcp://postgres:5432", "-timeout", "60s", "/root/go-binary"]
 
   postgres:
-    image: postgres:latest
+    container_name: payment-platform-db
+    image: postgres:16
+    expose:
+      - 5432
     environment:
       POSTGRES_DB: payment_platform
       POSTGRES_USER: hugh
       POSTGRES_PASSWORD: password
     volumes:
       - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data: {}
