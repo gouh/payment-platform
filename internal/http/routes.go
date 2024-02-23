@@ -8,8 +8,16 @@ import (
 )
 
 func SetupRoutes(router *gin.Engine, container *container.Container) {
+
+	auth := router.Group("/auth")
+	{
+		// auth routes
+		routes.SetupAuthRoutes(auth, container)
+	}
+
 	v1 := router.Group("/v1")
 	{
+		v1.Use(middleware.AuthMiddleware(container))
 		v1.Use(middleware.ErrorMiddleware())
 		v1.Use(middleware.RecoveryMiddleware())
 		v1.Use(middleware.CorsMiddleware())

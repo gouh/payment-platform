@@ -8,7 +8,8 @@ import (
 )
 
 type Config struct {
-	Db *DatabaseConfig
+	Db         *DatabaseConfig
+	AuthConfig *AuthConfig
 }
 
 func NewConfig(envFile string) *Config {
@@ -35,6 +36,7 @@ func NewConfig(envFile string) *Config {
 	}
 
 	return &Config{
-		Db: dbConfig,
+		Db:         dbConfig,
+		AuthConfig: LoadAuthConfig(),
 	}
 }
