@@ -156,7 +156,7 @@ Las contribuciones son bienvenidas. Si tienes alguna sugerencia para mejorar la 
 
 ## Licencia
 
-Este proyecto está licenciado bajo la MIT License - vea el archivo [LICENSE.md](LICENSE.md) para más detalles.
+Este proyecto está licenciado bajo la MIT License - vea el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
