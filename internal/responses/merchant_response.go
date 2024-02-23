@@ -13,10 +13,12 @@ func GetMerchantResponse(merchant *models.Merchant) *CommonResponse {
 
 func GetMerchantsResponse(merchants []models.Merchant, count *int, pagination requests.PaginationRequest) *CommonResponse {
 	itemsInPage := len(merchants)
-	totalPages := 1
-	if *count >= pagination.PageSize {
-		totalPages = *count / pagination.PageSize
+	totalPages := 0
+
+	if pagination.PageSize > 0 {
+		totalPages = (*count + pagination.PageSize - 1) / pagination.PageSize
 	}
+
 	return &CommonResponse{
 		Meta: &Meta{
 			Page:        &pagination.Page,

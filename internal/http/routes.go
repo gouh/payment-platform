@@ -25,5 +25,8 @@ func SetupRoutes(router *gin.Engine, container *container.Container) {
 
 		// customer-card routes
 		routes.SetupTokenizedCardRoutes(v1, container)
+
+		// payment routes
+		routes.SetupPaymentRoutes(v1, container)
 	}
 }

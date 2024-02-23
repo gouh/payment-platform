@@ -5,19 +5,20 @@ import (
 	"payment-platform/internal/requests"
 )
 
-func GetCustomerResponse(customer *models.Customer) *CommonResponse {
+func GetPaymentResponse(payment *models.Payment) *CommonResponse {
 	return &CommonResponse{
-		Data: customer,
+		Data: payment,
 	}
 }
 
-func GetCustomersResponse(customer []models.Customer, count *int, pagination requests.PaginationRequest) *CommonResponse {
-	itemsInPage := len(customer)
+func GetPaymentsResponse(payments []models.Payment, count *int, pagination requests.PaginationRequest) *CommonResponse {
+	itemsInPage := len(payments)
 	totalPages := 0
 
 	if pagination.PageSize > 0 {
 		totalPages = (*count + pagination.PageSize - 1) / pagination.PageSize
 	}
+
 	return &CommonResponse{
 		Meta: &Meta{
 			Page:        &pagination.Page,
@@ -26,6 +27,6 @@ func GetCustomersResponse(customer []models.Customer, count *int, pagination req
 			TotalPages:  &totalPages,
 			Error:       nil,
 		},
-		Data: customer,
+		Data: payments,
 	}
 }
