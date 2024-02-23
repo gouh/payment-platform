@@ -34,8 +34,8 @@ func (handler *MerchantHandler) GetMerchants(c *gin.Context) {
 
 	merchants, count, errGetMerchants := handler.MerchantDao.GetMerchants(merchantsParams)
 	if errGetMerchants != nil {
+		c.Status(http.StatusInternalServerError)
 		_ = c.Error(errGetMerchants)
-		c.JSON(http.StatusInternalServerError, responses.GetErrorResponse(errGetMerchants.Error()))
 		return
 	}
 
@@ -59,9 +59,9 @@ func (handler *MerchantHandler) GetMerchantById(c *gin.Context) {
 
 func (handler *MerchantHandler) CreateMerchant(c *gin.Context) {
 	var merchant = &models.Merchant{}
-	if errValidation := c.BindJSON(merchant); errValidation != nil {
+	if errValidation := c.ShouldBind(merchant); errValidation != nil {
+		c.Status(http.StatusNotAcceptable)
 		_ = c.Error(errValidation)
-		c.JSON(http.StatusNotAcceptable, errValidation)
 		return
 	}
 
@@ -77,9 +77,9 @@ func (handler *MerchantHandler) CreateMerchant(c *gin.Context) {
 
 func (handler *MerchantHandler) UpdateMerchant(c *gin.Context) {
 	var merchant = &models.Merchant{}
-	if errValidation := c.BindJSON(merchant); errValidation != nil {
+	if errValidation := c.ShouldBind(merchant); errValidation != nil {
+		c.Status(http.StatusNotAcceptable)
 		_ = c.Error(errValidation)
-		c.JSON(http.StatusNotAcceptable, errValidation)
 		return
 	}
 

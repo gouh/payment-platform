@@ -34,8 +34,8 @@ func (handler *CustomerHandler) GetCustomers(c *gin.Context) {
 
 	customers, count, errGetCustomers := handler.CustomerDao.GetCustomers(customersParams)
 	if errGetCustomers != nil {
+		c.Status(http.StatusInternalServerError)
 		_ = c.Error(errGetCustomers)
-		c.JSON(http.StatusInternalServerError, responses.GetErrorResponse(errGetCustomers.Error()))
 		return
 	}
 
@@ -59,9 +59,9 @@ func (handler *CustomerHandler) GetCustomerById(c *gin.Context) {
 
 func (handler *CustomerHandler) CreateCustomer(c *gin.Context) {
 	var customer = &models.Customer{}
-	if errValidation := c.BindJSON(customer); errValidation != nil {
+	if errValidation := c.ShouldBind(customer); errValidation != nil {
+		c.Status(http.StatusBadRequest)
 		_ = c.Error(errValidation)
-		c.JSON(http.StatusNotAcceptable, errValidation)
 		return
 	}
 
@@ -77,9 +77,9 @@ func (handler *CustomerHandler) CreateCustomer(c *gin.Context) {
 
 func (handler *CustomerHandler) UpdateCustomer(c *gin.Context) {
 	var customer = &models.Customer{}
-	if errValidation := c.BindJSON(customer); errValidation != nil {
+	if errValidation := c.ShouldBind(customer); errValidation != nil {
+		c.Status(http.StatusNotAcceptable)
 		_ = c.Error(errValidation)
-		c.JSON(http.StatusNotAcceptable, errValidation)
 		return
 	}
 
