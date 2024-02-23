@@ -21,6 +21,10 @@ Este proyecto es una aplicación de backend desarrollada en Go, utilizando el fr
 - **logrus**: Biblioteca de logging para Go, configurada para imprimir logs en formato JSON.
 - **PostgreSQL**: Sistema de gestión de bases de datos relacional utilizado para almacenar datos de comerciantes y pagos.
 
+## Modelo de base de datos
+
+![payment-platform es](https://github.com/gouh/payment-platform/assets/13145599/1ece23cb-b9ac-44df-9b67-f56cf232fc7d)
+
 ## Estructura del Proyecto
 
 ```
