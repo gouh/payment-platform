@@ -3,7 +3,7 @@ package models
 import "github.com/google/uuid"
 
 type Customer struct {
-	ID    uuid.UUID `db:"id"`
-	Name  string    `db:"name"`
-	Email string    `db:"email"`
+	ID    uuid.UUID `db:"id" json:"id"`
+	Name  string    `db:"name" json:"name" binding:"required"`
+	Email string    `db:"email" json:"email" binding:"required"`
 }

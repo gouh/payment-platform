@@ -8,8 +8,6 @@ import (
 )
 
 func SetupRoutes(router *gin.Engine, container *container.Container) {
-
-	// Grupo para la versión 1 de la API
 	v1 := router.Group("/v1")
 	{
 		v1.Use(middleware.ErrorMiddleware())
@@ -18,6 +16,11 @@ func SetupRoutes(router *gin.Engine, container *container.Container) {
 
 		// health routes
 		routes.SetupHealthRoutes(v1, container)
+
+		// merchant routes
 		routes.SetupMerchantRoutes(v1, container)
+
+		// customer routes
+		routes.SetupCustomerRoutes(v1, container)
 	}
 }
